@@ -1,3 +1,56 @@
-h1 { 
-    color: blue;
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f9f9f9;
+    overflow: hidden;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+.background-gifts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.gift-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: url('https://cdn-icons-png.flaticon.com/512/1079/1079176.png') no-repeat center/contain;
+    animation: float 5s infinite alternate ease-in-out;
+}
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+.container {
+    position: relative;
+    z-index: 10;
+}
+.hidden { display: none; }
+.gift-box {
+    width: 150px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.gift-box:hover { transform: scale(1.1); }
+.explode {
+    animation: explode 0.5s forwards;
+}
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+.voucher-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    display: none;
+    margin-top: 20px;
 }
