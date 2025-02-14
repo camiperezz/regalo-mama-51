@@ -1,56 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Quicksand:wght@500&display=swap');
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #f9f9f9;
+    background: linear-gradient(270deg, #ffdde1, #ee9ca7, #ffafbd);
+    background-size: 600% 600%;
+    animation: backgroundMove 8s infinite alternate ease-in-out;
     overflow: hidden;
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     position: relative;
+    transition: background 0.5s ease-in-out;
 }
-.background-gifts {
+
+@keyframes backgroundMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+strong {
+    color: #ff3f6e;
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    border-radius: 12px;
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); */
+    transition: transform 0.3s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.container:hover {
+    /* transform: scale(1.05); */
+    /* padding: 40px; */
+}
+
+button {
+    padding: 15px 35px;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: #ff6584;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-family: 'Nunito', sans-serif;
+}
+
+button:hover {
+    background: #ff3f6e;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 99, 132, 0.4);
+}
+
+.gift-box {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    animation: pulse 1.5s infinite;
+    background: url('./693407.png') no-repeat center/contain;
+    display: inline-block;
+}
+
+.gift-box:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.explode {
+    animation: explode 0.6s forwards ease-out;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+}
+
+.voucher-text {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+    background: #fff3f3;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-in-out;
+    font-family: 'Nunito', sans-serif;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons button {
+    margin: 5px;
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+.reaction {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+.reaction img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.balloons {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    overflow: hidden;
     pointer-events: none;
+    overflow: hidden;
 }
-.gift-icon {
+
+.balloon {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    background: url('https://cdn-icons-png.flaticon.com/512/1079/1079176.png') no-repeat center/contain;
-    animation: float 5s infinite alternate ease-in-out;
+    width: 50px;
+    height: 70px;
+    background: radial-gradient(circle, #ff9a9e, #fad0c4);
+    border-radius: 50%;
+    animation: floatBalloon 5s infinite ease-in-out;
 }
-@keyframes float {
-    from { transform: translateY(0); }
-    to { transform: translateY(-20px); }
-}
-.container {
-    position: relative;
-    z-index: 10;
-}
-.hidden { display: none; }
-.gift-box {
-    width: 150px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-.gift-box:hover { transform: scale(1.1); }
-.explode {
-    animation: explode 0.5s forwards;
-}
-@keyframes explode {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(3); opacity: 0; }
-}
-.voucher-text {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    display: none;
-    margin-top: 20px;
+
+@keyframes floatBalloon {
+    0% { transform: translateY(100vh) scale(0.8); opacity: 0.8; }
+    100% { transform: translateY(-20vh) scale(1.2); opacity: 1; }
 }

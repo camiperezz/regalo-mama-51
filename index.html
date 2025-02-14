@@ -4,100 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Regalo</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f9f9f9;
-            overflow: hidden;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            position: relative;
-        }
-        .background-gifts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .gift-icon {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: url('https://cdn-icons-png.flaticon.com/512/1079/1079176.png') no-repeat center/contain;
-            animation: float 5s infinite alternate ease-in-out;
-        }
-        @keyframes float {
-            from { transform: translateY(0); }
-            to { transform: translateY(-20px); }
-        }
-        .container {
-            position: relative;
-            z-index: 10;
-        }
-        .hidden { display: none; }
-        .gift-box {
-            width: 150px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .gift-box:hover { transform: scale(1.1); }
-        .explode {
-            animation: explode 0.5s forwards;
-        }
-        @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-        .voucher-text {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            display: none;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="background-gifts"></div>
-    <div class="container">
-        <button id="openButton">¿Quieres abrir tu regalo?</button>
-        <img id="giftBox" class="gift-box hidden" src="https://cdn-icons-png.flaticon.com/512/1533/1533061.png" alt="Regalo">
-        <div id="voucherText" class="voucher-text">🎉 ¡Felicidades! 🎉<br> Vale para una cena para 3 en <strong>Ártico - Fast Sea Food</strong><br>Válido hasta el <strong>25 de febrero de 2025</strong></div>
+    <div class="balloons" id="balloons">
+        <div class="balloon" style="left: 10%; animation-duration: 6s;"></div>
+        <div class="balloon" style="left: 30%; animation-duration: 7s;"></div>
+        <div class="balloon" style="left: 50%; animation-duration: 5s;"></div>
+        <div class="balloon" style="left: 70%; animation-duration: 8s;"></div>
+        <div class="balloon" style="left: 90%; animation-duration: 6.5s;"></div>
     </div>
-    
+
+    <div class="container">
+        <button id="openButton">Descubrí tu regalo! Clickeame</button>
+        <div id="giftBox" class="gift-box hidden"></div>
+        <div id="voucherText" class="voucher-text hidden">
+            🎉 <strong>¡Felicidades!</strong> 🎉<br> 
+            <span>Te regalamos un vale para una cena para 3 personas en</span>  
+            <strong>Ártico - Fast Sea Food</strong><br>
+            <span>Válido hasta el <strong>24 de febrero de 2025</strong> inclusive</span>
+
+            <p class="question">¿Te gustó?</p>
+            <div class="buttons">
+                <button id="yesButton">Sí 😍</button>
+                <button id="noButton">No 😭</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="reaction" class="reaction hidden">
+        <img id="reactionImage" src="" alt="Reacción">
+        <p id="mensaje"></p>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const openButton = document.getElementById("openButton");
             const giftBox = document.getElementById("giftBox");
             const voucherText = document.getElementById("voucherText");
-            const background = document.querySelector(".background-gifts");
-            
-            for (let i = 0; i < 20; i++) {
-                let icon = document.createElement("div");
-                icon.classList.add("gift-icon");
-                icon.style.left = Math.random() * 100 + "vw";
-                icon.style.top = Math.random() * 100 + "vh";
-                icon.style.animationDuration = (Math.random() * 3 + 2) + "s";
-                background.appendChild(icon);
-            }
-            
+            const yesButton = document.getElementById("yesButton");
+            const noButton = document.getElementById("noButton");
+            const reaction = document.getElementById("reaction");
+            const reactionImage = document.getElementById("reactionImage");
+            const balloons = document.getElementById("balloons");
+            const mensaje = document.getElementById("mensaje");
+
             openButton.addEventListener("click", function () {
                 openButton.classList.add("hidden");
                 giftBox.classList.remove("hidden");
             });
-            
+
             giftBox.addEventListener("click", function () {
                 giftBox.classList.add("explode");
                 setTimeout(() => {
-                    giftBox.style.display = "none";
-                    voucherText.style.display = "block";
-                }, 500);
+                    giftBox.style.display = "none"; // Oculta la caja después de explotar
+                    voucherText.classList.remove("hidden");
+                }, 600);
+            });
+
+            yesButton.addEventListener("click", function () {
+                document.body.style.background = "green";
+                reactionImage.src = "./si.jpeg"; // GIF para "Sí"
+                reaction.classList.remove("hidden");
+                voucherText.classList.add("hidden");
+                balloons.classList.add("hidden");
+                mensaje.textContent = "Te amamos! Feliz cumple <3"
+            });
+
+            noButton.addEventListener("click", function () {
+                document.body.style.background = "red";
+                reactionImage.src = "./no.jpeg"; // GIF para "No"
+                reaction.classList.remove("hidden");
+                voucherText.classList.add("hidden");
+                balloons.classList.add("hidden");
+                mensaje.textContent = "Te amamos igual! Feliz cumple <3"
             });
         });
     </script>
